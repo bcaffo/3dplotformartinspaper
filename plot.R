@@ -25,13 +25,14 @@
 y = c(.4, .8)
 
 ## The slopes of the linear subspace 
-## Subspace1 is the set {x * beta1 | beta1 in R}
-## Subspace2 is the set {x * beta2 | beta2 in R}
+## Subspace1 is the set {z * slope1 | z in R}
+## Subspace2 is the set {z * slope2 | z in R}
 slope1 = .75
 slope2 = .05
 
 ## The projection function of a point (y1, y2)
-## onto a line through the origin with slope b
+## onto a the subspace defined by a 
+## line through the origin with slope b
 project = function(y, b) {
   p = b ^ 2 / (b ^ 2 + 1)
   
@@ -49,18 +50,17 @@ project = function(y, b) {
 arrow = function(x, y, ...)
   arrows(x[1], y[1], x[2], y[2], ...)
 
-## The projection point on the first subspace
+## The projection and residual of the observed
+## data point onto the first subspace
 temp = project(y, slope1)
 pys1 = temp$projection
-## The residual
 rys1 = temp$residual
 rm(temp)
 
-## The projection of the residual from the first 
-## subspace onto the second subspace
+## The projection and residual onto the second subspace 
+## of the residual of the projection from the first subspace 
 temp = project(rys1, slope2)
 prys1s2 = temp$project
-## the residual of this projection
 rrys1s2 = temp$residual
 rm(temp)
 
@@ -69,13 +69,15 @@ rm(temp)
 ## is guaranteed to be orthogonal to any point in S1
 bleedover = sum(rys1, rrys1s2)
 
-
-plotrange = range(c(y, pys1, pys2, prys1s2, rys1, rrys1s2))
+## define a plotrange, just cover all of the points
+plotrange = range(c(y, pys1, prys1s2, rys1, rrys1s2))
 
 ## Create a blank plot
 plot(plotrange, plotrange, type = "n", xlab = "", ylab = "", 
      frame = FALSE, 
      axes = FALSE, asp = 1)
+## Uncomment this if you want the title to display the inner
+## product of the second residual with the first
 #title(paste0("The inner product is: ", round(bleedover, 3)))
 
 ## The two linear subspaces
@@ -90,8 +92,6 @@ points(pys1[1], pys1[2])
 
 ## The line from the data to the projected point on the first subspace
 arrow(c(y[1], pys1[1]), c(y[2], pys1[2]), col = "blue", lty = 3)
-
-
 
 ## A dashed line connecting the projection of the 
 ## original data point to the residual from projecting onto the 
