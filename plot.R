@@ -111,7 +111,7 @@ points(prys1s2[1], prys1s2[2])
 arrow(c(rys1[1], prys1s2[1]), c(rys1[2], prys1s2[2]), 
       col = "red", lty = 3)
 
-## A dashed line
+## A dashed line from the second projection to its residual
 arrow(c(prys1s2[1], rrys1s2[1]), c(prys1s2[2], rrys1s2[2]),
       col = "red", lty = 3)
 
