@@ -67,7 +67,7 @@ rm(temp)
 ## The inner product of this residual and the first residual
 ## Note you'd want this to be orthongoal since the first residual
 ## is guaranteed to be orthogonal to any point in S1
-bleedover = sum(rys1, rrys1s2)
+bleedover = sum(rys1 * rrys1s2)
 
 ## define a plotrange, just cover all of the points
 plotrange = range(c(y, pys1, prys1s2, rys1, rrys1s2))
